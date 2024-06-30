@@ -14,7 +14,7 @@
       <li>
         <h3>Edson</h3>
         <p>Email: edson.email@email.com</p>
-        <p>GitHub: <a :href="'https://github.com/'">GithubEdson</a></p>
+        <p>GitHub: <a :href="'https://github.com/Edisonfb'">Edisonfb</a></p>
       </li>
     </ul>
   </div>

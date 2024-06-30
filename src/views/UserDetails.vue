@@ -10,19 +10,17 @@ const route = useRoute()
 const router = useRouter()
 
 onMounted(async () => {
-  try {
-    const userId = route.params.id
-    const userResponse = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
-    user.value = await userResponse.json()
+  
+  const userId = route.params.id
+  const userResponse = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+  user.value = await userResponse.json()
 
-    const postsResponse = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
-    posts.value = await postsResponse.json()
+  const postsResponse = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+  posts.value = await postsResponse.json()
 
-    const todosResponse = await fetch(`https://jsonplaceholder.typicode.com/todos?userId=${userId}`)
-    topicos.value = await todosResponse.json()
-  } catch (error) {
-    console.error('Error fetching user details:', error)
-  }
+  const todosResponse = await fetch(`https://jsonplaceholder.typicode.com/todos?userId=${userId}`)
+  topicos.value = await todosResponse.json()
+  
 })
 
 const goToPost = (postId) => {
@@ -48,6 +46,8 @@ const goToPost = (postId) => {
     <div class="posts-container">
       <h3>Postagens:</h3>
       <ul class="posts">
+        <!-- Lista todos os posts do usuário e quando clicar no post 
+         ele vai para o post específico e mostra todos os comentários-->
         <li v-for="post in posts" :key="post.id" class="post-item">
           <h4 @click="goToPost(post.id)">{{ post.title }}</h4>
           <p>{{ post.body }}</p>
@@ -58,6 +58,8 @@ const goToPost = (postId) => {
     <div class="topicos-container">
       <h3>Tópicos de interesse:</h3>
       <ul class="topicos">
+        <!-- Lista as Todos da api, e o recebe o título dependendo do estado do 
+         topico.completed -->
         <li v-for="topico in topicos" :key="todosid" class="topicos-item">
           <p class="status">{{ topico.completed ? 'Ja fotografei' : 'Quero fotografar' }}</p>
           <p>{{ topico.title }}</p>

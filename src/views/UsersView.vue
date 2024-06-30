@@ -18,12 +18,10 @@ const users = ref([])
 const router = useRouter()
 
 onMounted(async () => {
-  try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users')
-    users.value = await response.json()
-  } catch (error) {
-    console.error('Error fetching users:', error)
-  }
+
+  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+  users.value = await response.json()
+
 })
 
 const goToUserPage = (userId) => {

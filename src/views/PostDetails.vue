@@ -27,16 +27,16 @@ const comments = ref([])
 const route = useRoute()
 
 onMounted(async () => {
-  try {
-    const postId = route.params.id
-    const postResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-    post.value = await postResponse.json()
+  
+  // Pega um post específico e todos os comentários do post
+  
+  const postId = route.params.id
+  const postResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+  post.value = await postResponse.json()
 
-    const commentsResponse = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
-    comments.value = await commentsResponse.json()
-  } catch (error) {
-    console.error('Error fetching post details:', error)
-  }
+  const commentsResponse = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
+  comments.value = await commentsResponse.json()
+
 })
 </script>
 
