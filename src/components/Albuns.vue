@@ -11,7 +11,6 @@
         <div class="album">
           <div v-for="(photo, photoIndex) in album.photos" :key="photoIndex" class="photo">
             <img :src="photo.thumbnailUrl" alt="Photo" />
-
           </div>
         </div>
       </div>
@@ -20,39 +19,34 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 
-  const albums = ref([])
-  onMounted(async () => {
+const albums = ref([])
+onMounted(async () => {
+  //pega dados albums
+  const albumsResponse = await fetch('https://jsonplaceholder.typicode.com/albums')
+  const albumsData = await albumsResponse.json()
+  //pega dados photos
+  const photosResponse = await fetch('https://jsonplaceholder.typicode.com/photos')
+  const photosData = await photosResponse.json()
 
-    // Cria uma variável e adiciona a resposta do fetch
-    const albumsResponse = await fetch('https://jsonplaceholder.typicode.com/albums')
-    // Passa a resposta do fetch como um json, criando vários objetos em albums
-    const albumsData = await albumsResponse.json()
+  // Agrupar as fotos por álbum (usando o ID)
+  const groupedPhotos = {}
 
-    const photosResponse = await fetch('https://jsonplaceholder.typicode.com/photos')
-    const photosData = await photosResponse.json()
+  photosData.forEach((photo) => {
+    if (!groupedPhotos[photo.albumId]) {
+      groupedPhotos[photo.albumId] = []
+    }
+    groupedPhotos[photo.albumId].push(photo)
+  })
 
-    // Agrupar as fotos por álbum (usando o ID)
-    const groupedPhotos = photosData.reduce((acc, photo) => {
-      if (!acc[photo.albumId]) {
-        acc[photo.albumId] = []
-      }
-      acc[photo.albumId].push(photo)
-      return acc
-    }, {})
-
-    // Mapear os álbuns com suas fotos correspondentes
-    // Cria uma nova propriedade em albums que são as fotos já mapeadas pelo ID
-    albums.value = albumsData.map((album) => ({
-      ...album,
-      photos: groupedPhotos[album.id] || []
-    }))
-  
-});
-
-  
-
+  // Mapear os álbuns com suas fotos correspondentes
+  // Cria uma nova propriedade em albums que são as fotos já mapeadas pelo ID
+  albums.value = albumsData.map((album) => ({
+    ...album,
+    photos: groupedPhotos[album.id] || []
+  }))
+})
 </script>
 
 <style scoped>

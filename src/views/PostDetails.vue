@@ -1,3 +1,26 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+const post = ref(null)
+const comments = ref([])
+
+const route = useRoute()
+
+onMounted(async () => {
+  // Pega um post específico e todos os comentários do post
+
+  const postId = route.params.id
+  const postResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+  post.value = await postResponse.json()
+
+  const commentsResponse = await fetch(
+    `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
+  )
+  comments.value = await commentsResponse.json()
+})
+</script>
+
 <template>
   <div class="container" v-if="post && comments.length">
     <h2>{{ post.title }}</h2>
@@ -16,29 +39,6 @@
     <p>Carregando dados do post...</p>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-
-const post = ref(null)
-const comments = ref([])
-
-const route = useRoute()
-
-onMounted(async () => {
-  
-  // Pega um post específico e todos os comentários do post
-  
-  const postId = route.params.id
-  const postResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-  post.value = await postResponse.json()
-
-  const commentsResponse = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
-  comments.value = await commentsResponse.json()
-
-})
-</script>
 
 <style scoped>
 .container {

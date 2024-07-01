@@ -1,3 +1,21 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+const users = ref([])
+
+const router = useRouter()
+
+onMounted(async () => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/users')
+  users.value = await response.json()
+})
+
+const goToUserPage = (userId) => {
+  router.push(`/user/${userId}`)
+}
+</script>
+
 <template>
   <div class="container">
     <h1>Página de Usuários</h1>
@@ -8,26 +26,6 @@
     </ul>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-
-const users = ref([])
-
-const router = useRouter()
-
-onMounted(async () => {
-
-  const response = await fetch('https://jsonplaceholder.typicode.com/users')
-  users.value = await response.json()
-
-})
-
-const goToUserPage = (userId) => {
-  router.push(`/user/${userId}`)
-}
-</script>
 
 <style scoped>
 .container {

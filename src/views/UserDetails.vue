@@ -10,7 +10,6 @@ const route = useRoute()
 const router = useRouter()
 
 onMounted(async () => {
-  
   const userId = route.params.id
   const userResponse = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
   user.value = await userResponse.json()
@@ -20,7 +19,6 @@ onMounted(async () => {
 
   const todosResponse = await fetch(`https://jsonplaceholder.typicode.com/todos?userId=${userId}`)
   topicos.value = await todosResponse.json()
-  
 })
 
 const goToPost = (postId) => {
@@ -33,9 +31,9 @@ const goToPost = (postId) => {
     <h1>{{ user.name }}</h1>
     <p>Username: {{ user.username }}</p>
     <p>Email: {{ user.email }}</p>
-    <p>Phone: {{ user.phone }}</p>
-    <p>Website: {{ user.website }}</p>
-    <p>Company: {{ user.company.name }}</p>
+    <p>Telefone: {{ user.phone }}</p>
+    <p>Site: {{ user.website }}</p>
+    <p>Empresa: {{ user.company.name }}</p>
 
     <h3>Endereço:</h3>
     <p>
@@ -72,8 +70,6 @@ const goToPost = (postId) => {
   </div>
 </template>
 
-
-
 <style scoped>
 .container {
   margin-bottom: 2rem;
@@ -108,15 +104,17 @@ h3 {
   box-shadow: 0 20px 20px -10px rgba(0, 0, 0, 0.5);
   background-color: rgb(145, 196, 196);
 }
-.posts-container::-webkit-scrollbar, .topicos-container::-webkit-scrollbar {
+.posts-container::-webkit-scrollbar,
+.topicos-container::-webkit-scrollbar {
   display: none;
 }
 
-.posts, .topicos {
+.posts,
+.topicos {
   list-style-type: none;
   padding: 0;
   width: 50%;
-  text-align: center
+  text-align: center;
 }
 
 .post-item,
@@ -137,7 +135,7 @@ h3 {
   cursor: pointer;
 }
 
-.status{
+.status {
   font-weight: bolder;
 }
 </style>

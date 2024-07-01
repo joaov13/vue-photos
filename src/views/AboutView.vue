@@ -1,9 +1,12 @@
 <template>
   <div class="about-view">
     <h1>Projeto de Front-end Vue3</h1>
-    <p>Este projeto é um front-end desenvolvido em Vue.js 3 para consumir uma API pública que fornece dados de usuários, posts, comentários, álbuns, fotos e listas de tarefas (to-do lists). O objetivo é criar uma interface amigável para explorar e interagir com esses dados.
+    <p>
+      Este projeto é um front-end desenvolvido em Vue.js 3 para consumir uma API pública que fornece
+      dados de usuários, posts, comentários, álbuns, fotos e listas de tarefas (to-do lists). O
+      objetivo é criar uma interface amigável para explorar e interagir com esses dados.
     </p>
-    
+
     <h2>Integrantes:</h2>
     <ul class="integrantes-list">
       <li>
@@ -19,9 +22,6 @@
     </ul>
   </div>
 </template>
-
-<script setup>
-</script>
 
 <style scoped>
 .about-view {
@@ -62,7 +62,7 @@ h2 {
 }
 
 .integrantes-list li a {
-  color: #007BFF;
+  color: #007bff;
   text-decoration: none;
 }
 
